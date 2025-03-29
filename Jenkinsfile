@@ -22,8 +22,8 @@ pipeline {
 
                 echo "Docker Image Run Container"
                 script {
-                    sh "docker rm -f WRU_Frontend || true"
-                    sh "docker run -d --name WRU_Frontend -p 54100:3000 WRU_Frontend"
+                    sh "docker rm -f WRU_Frontend-run || true"
+                    sh "docker run -d --name WRU_Frontend-run -p 54100:3000 WRU_Frontend"
                     echo "Docker Image Run Container Success"
                 }
             }
