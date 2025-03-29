@@ -7,7 +7,7 @@ pipeline {
                 checkout([
                     $class: 'GitSCM',
                     branches: [[name: '*/main']],
-                    userRemoteConfigs: [[credentialsId: 'nawarat', url: 'https://github.com/NawratvPatnantaporn/Project.git']]
+                    userRemoteConfigs: [[credentialsId: 'nawarat', url: 'https://github.com/NawratvPatnantaporn/WRU_Frontend.git']]
                 ])
                 print "Checkout Success"
             }
