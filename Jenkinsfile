@@ -1,6 +1,17 @@
 pipeline {
     agent any
+    environment {
+    PATH = "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    }
     stages {
+        stage('Debug Path') {
+            steps {
+                sh 'echo $PATH'
+                sh 'ls -l /usr/local/bin/docker'
+                sh 'whoami'
+            }
+        }
+        
         stage('Checkout') {
             steps {
                 print "Checkout"
@@ -16,14 +27,14 @@ pipeline {
             steps {
                 echo "Docker Build Image"
                 script {
-                sh "/usr/local/bin/docker build -t WRU_Frontend ."
+                sh "docker build -t WRU_Frontend ."
                 echo "Docker Build Image Success"
                 }
 
                 echo "Docker Image Run Container"
                 script {
-                    sh "/usr/local/bin/docker rm -f WRU_Frontend-run || true"
-                    sh "/usr/local/bin/docker run -d --name WRU_Frontend-run -p 54100:3000 WRU_Frontend"
+                    sh "docker rm -f WRU_Frontend-run || true"
+                    sh "docker run -d --name WRU_Frontend-run -p 54100:3000 WRU_Frontend"
                     echo "Docker Image Run Container Success"
                 }
             }
