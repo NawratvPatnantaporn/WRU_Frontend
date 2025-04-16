@@ -1,0 +1,17 @@
+services:
+  backend:
+    image: 'projectback'
+    ports:
+      - 30100:50100
+    environment:
+      - MONGOURL=mongodb://admin:1234@mongo:27017/mydb?authSource=mydb
+      - NODE_OPTIONS=--max-old-space-size=4096
+  frontend:
+    build: '.'
+  mongo:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: 1234
+    ports:
+      - 27017:27017

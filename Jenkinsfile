@@ -27,14 +27,14 @@ pipeline {
             steps {
                 echo "Docker Build Image"
                 script {
-                sh "docker build -t WRU_Frontend ."
+                sh "docker build -t wru_frontend ."
                 echo "Docker Build Image Success"
                 }
 
                 echo "Docker Image Run Container"
                 script {
-                    sh "docker rm -f WRU_Frontend-run || true"
-                    sh "docker run -d --name WRU_Frontend-run -p 54100:3000 WRU_Frontend"
+                    sh "docker rm -f wru_frontend-run || true"
+                    sh "docker run -d --name wru_frontend-run -p 54100:3000 wru_frontend"
                     echo "Docker Image Run Container Success"
                 }
             }
