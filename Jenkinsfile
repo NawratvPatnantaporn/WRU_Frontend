@@ -50,6 +50,7 @@ pipeline {
 
         stage('Run MongoDB') {
             steps {
+                sh "docker rm -f mongo || true"  // ✅ ลบ Container เก่า (ถ้ามี)
                 sh "docker run -d --name mongo --network ${DOCKER_NETWORK} -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=1234 mongo:latest"
             }
         }
