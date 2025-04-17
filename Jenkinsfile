@@ -26,7 +26,7 @@ pipeline {
                     $class: 'GitSCM',
                     branches: [[name: '*/main']],
                     extensions: [[$class: 'CleanCheckout']],
-                    userRemoteConfigs: [[credentialsId: 'nawarat', url: 'https://github.com/NawratvPatnantaporn/WRU_Project.git']]
+                    userRemoteConfigs: [[credentialsId: 'Nawarat', url: 'https://github.com/NawratvPatnantaporn/WRU_Project.git']]
                 ])
 
                 // Checkout Backend
@@ -34,7 +34,7 @@ pipeline {
                     checkout([
                         $class: 'GitSCM',
                         branches: [[name: '*/main']],
-                        userRemoteConfigs: [[credentialsId: 'nawarat', url: 'https://github.com/NawratvPatnantaporn/WRU_Backend.git']]
+                        userRemoteConfigs: [[credentialsId: 'Nawarat', url: 'https://github.com/NawratvPatnantaporn/WRU_Backend.git']]
                     ])
                 }
             }
