@@ -130,12 +130,12 @@ const EditEmployee = () => {
 
         <div className="space-y-6">
           <motion.div
-            className="p-6 bg-gray-800 bg-opacity-50 rounded-lg border border-gray-700"
+            className="p-6 bg-white backdrop-blur-xl border-gray-300 bg-opacity-50 rounded-lg border "
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <h3 className="text-xl font-semibold text-blue-400 mb-3">
+            <h3 className="text-xl font-bold mb-6 text-center bg-gradient-to-r from-sky-500 to-emerald-500 text-transparent bg-clip-text">
               Personal Information
             </h3>
             <form onSubmit={handleSubmit}>

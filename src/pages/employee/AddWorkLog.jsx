@@ -100,11 +100,11 @@ const AddWorkLog = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="sm:mx-auto w-full max-w-4xl bg-gray-800 bg-opacity-50 backdrop-filter backdrop-blur-xl rounded-2xl shadow-xl overflow-visible"
+        className="sm:mx-auto w-full max-w-4xl bg-white bg-opacity-50 backdrop-filter backdrop-blur-xl rounded-2xl shadow-xl overflow-visible"
 
       >
         <div className="p-8">
-          <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r text-white text-transparent bg-clip-text">
+          <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-sky-500 to-emerald-500 text-transparent bg-clip-text">
             Work Log
           </h2>
 
@@ -119,7 +119,7 @@ const AddWorkLog = () => {
               required
             />
             <div className="mb-4 relative">
-              <label htmlFor="taskDetails" className="text-white font-medium mb-2 block">
+              <label htmlFor="taskDetails" className="text-gray-700 font-medium mb-2 block">
                 <span className="flex items-center gap-2">
                   <PencilLine size={20} />
                   Task Details
@@ -133,10 +133,10 @@ const AddWorkLog = () => {
                 placeholder="Describe your task in detail..."
                 required
                 rows={6}
-                className="w-full resize-y min-h-[150px] rounded-lg border border-gray-300 p-3 bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full resize-y min-h-[150px] rounded-lg border border-gray-300 p-3 bg-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <label htmlFor="fileUpload" className="text-white font-medium block mb-1">
                 Attach File (optional)
               </label>
@@ -160,7 +160,7 @@ const AddWorkLog = () => {
                   Selected File: <span className="font-medium text-white">{attachedFile.name}</span>
                 </p>
               )}
-            </div>
+            </div> */}
             <Input
               icon={PencilLine}
               type="text"
@@ -182,9 +182,9 @@ const AddWorkLog = () => {
               max="7"
             />
             <motion.button
-              className="mt-5 flex justify-center w-full py-3 px-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white 
-              font-bold rounded-lg shadow-lg hover:from-blue-700 hover:to-emerald-600 focus:outline-none focus:ring-2 
-            focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200"
+              className="mt-5 flex justify-center w-full py-3 px-4 bg-gradient-to-r from-sky-500 to-teal-600 text-white 
+              font-bold rounded-lg shadow-lg hover:from-sky-600 hover:to-teal-700 focus:outline-none focus:ring-2 
+            focus:ring-teal-400 focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               type="submit"

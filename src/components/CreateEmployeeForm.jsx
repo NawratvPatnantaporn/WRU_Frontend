@@ -77,12 +77,12 @@ const CreateEmployeeForm = () => {
 
   return (
     <motion.div
-      className="bg-gray-800 shadow-lg rounded-lg p-8 mb-8 max-w-xl mx-auto"
+      className="bg-white bg-opacity-50 backdrop-blur-xl border-gray-300 shadow-lg rounded-lg p-8 mb-8 max-w-xl mx-auto"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
     >
-      <h2 className="text-2xl font-semibold mb-6 text-blue-300">
+      <h2 className="text-xl font-bold mb-6 text-center bg-gradient-to-r from-sky-500 to-emerald-500 text-transparent bg-clip-text">
         Create New Employee
       </h2>
       <form onSubmit={handleSubmit}>
@@ -107,7 +107,7 @@ const CreateEmployeeForm = () => {
           />
           <div className="relative mb-4">
             <Computer
-              className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500"
+              className="absolute left-3 top-1/2 transform -translate-y-1/2 text-sky-600"
               size={20}
             />
             <select

@@ -100,7 +100,7 @@ const EmployeeList = () => {
 
   return (
     <motion.div
-      className="bg-gray-800 shadow-lg rounded-lg overflow-hidden max-w-4xl mx-auto"
+      className="bg-white bg-opacity-50 backdrop-blur-xl shadow-lg rounded-lg overflow-hidden max-w-4xl mx-auto border border-gray-300"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
@@ -108,60 +108,60 @@ const EmployeeList = () => {
       {loading ? (
         <p className="text-center text-gray-300 py-4">Loading employees...</p>
       ) : (
-        <table className="min-w-full divide-y divide-gray-700">
-          <thead className="bg-gray-700 whitespace-nowrap table-auto">
+          <table className="min-w-full divide-y divide-gray-300 text-sm text-gray-800">
+            <thead className="bg-gray-100">
             <tr>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+                  className="px-6 py-3 text-left font-semibold text-gray-700 uppercase tracking-wider"
               >
                 Department
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+                  className="px-6 py-3 text-left font-semibold text-gray-700 uppercase tracking-wider"
               >
                 Name
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+                  className="px-6 py-3 text-left font-semibold text-gray-700 uppercase tracking-wider"
               >
                 Email
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+                  className="px-6 py-3 text-left font-semibold text-gray-700 uppercase tracking-wider"
               >
                 ID Card
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+                  className="px-6 py-3 text-left font-semibold text-gray-700 uppercase tracking-wider"
               >
                 Actions
               </th>
             </tr>
           </thead>
 
-          <tbody className="bg-gray-800 divide-y divide-gray-700">
+            <tbody className="bg-white bg-opacity-50 backdrop-blur-xl divide-y divide-gray-200 text-gray-600">
             {currentEmployees.map((employee) => (
-              <tr key={employee._id} className="hover:bg-gray-700">
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-300">
+              <tr key={employee._id} className="hover:bg-slate-100">
+                <td className="px-6 py-4">
+                  <div className="text-sm text-gray-700">
                     {employee.department}
                   </div>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-300">{employee.name}</div>
+                <td className="px-6 py-4">
+                  <div className="text-sm text-gray-600">{employee.name}</div>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-300">{employee.email}</div>
+                <td className="px-6 py-4">
+                  <div className="text-sm text-gray-600">{employee.email}</div>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-300">{employee.idcard}</div>
+                <td className="px-6 py-4">
+                  <div className="text-sm text-gray-600">{employee.idcard}</div>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                <td className="px-6 py-4">
                   <div className="flex items-center space-x-2">
                     <button
                       onClick={() => {
@@ -193,7 +193,7 @@ const EmployeeList = () => {
       )}
 
       {!loading && currentEmployees.length === 0 && (
-        <p className="text-center text-gray-300 py-4">ไม่พบข้อมูลพนักงาน</p>
+        <p className="text-center text-gray-600 py-4">ไม่พบข้อมูลพนักงาน</p>
       )}
 
       {/* Pagination and Search Box */}
@@ -203,17 +203,17 @@ const EmployeeList = () => {
           <button
             onClick={() => paginate(currentPage - 1)}
             disabled={currentPage === 1}
-            className="px-4 py-2 bg-gray-700 text-gray-300 rounded-md disabled:opacity-50 hover:bg-gray-600"
+            className="px-4 py-2 bg-blue-600 text-white rounded-md disabled:opacity-50 hover:bg-blue-700"
           >
             Prev
           </button>
-          <span className="px-4 py-2 text-gray-300">
+          <span className="px-4 py-2 text-gray-600">
             Page {currentPage} of {Math.ceil(filteredEmployees.length / itemsPerPage)}
           </span>
           <button
             onClick={() => paginate(currentPage + 1)}
             disabled={currentPage === Math.ceil(filteredEmployees.length / itemsPerPage)}
-            className="px-4 py-2 bg-gray-700 text-gray-300 rounded-md disabled:opacity-50 hover:bg-gray-600"
+            className="px-4 py-2 bg-blue-600 text-white rounded-md disabled:opacity-50 hover:bg-blue-700"
           >
             Next
           </button>
@@ -226,7 +226,7 @@ const EmployeeList = () => {
             placeholder="ค้นหาพนักงาน..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="px-4 py-2 bg-gray-700 text-gray-300 rounded-md w-full max-w-xs focus:ring-2 focus:ring-blue-500"
+            className="px-4 py-2 bg-white text-gray-800 border border-gray-300 rounded-md w-full max-w-xs focus:ring-2 focus:ring-blue-500"
           />
         </div>
       </div>

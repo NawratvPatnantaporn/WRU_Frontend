@@ -46,26 +46,26 @@ const CalcuLate = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="sm:mx-auto sm:w-full sm:max-w-md bg-gray-800 bg-opacity-50 backdrop-filter backdrop-blur-xl rounded-2xl shadow-xl overflow-hidden"
+        className="sm:mx-auto sm:w-full sm:max-w-md bg-white bg-opacity-50 backdrop-filter backdrop-blur-xl rounded-2xl shadow-xl overflow-hidden"
       >
         <div className="p-8">
-          <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-blue-400 to-blue-500 text-transparent bg-clip-text">
+          <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-sky-500 to-emerald-500 text-transparent bg-clip-text">
             Today's Work Summary
           </h2>
 
           {/* ตรวจสอบว่า user มีข้อมูลการทำงานสำหรับวันนี้หรือไม่ */}
           {todayWorkLogs?.length > 0 ? (
-            <div className="mb-4 text-center text-gray-200">
+            <div className="mb-4 text-center text-gray-500">
               {todayWorkLogs.map((work, index) => (
-                <div key={index} className="text-gray-300">
+                <div key={index} className="text-gray-900">
                   <p className="text-lg">
-                    <span className="font-semibold text-blue-400">
+                    <span className="font-semibold text-sky-700">
                       Hours Worked:{" "}
                     </span>
                     {work.hoursWorked} hours
                   </p>
                   <p className="text-lg mt-2">
-                    <span className="font-semibold text-blue-400">
+                    <span className="font-semibold text-sky-700">
                       Price rate:{" "}
                     </span>
                     {user?.rate}฿
@@ -74,14 +74,14 @@ const CalcuLate = () => {
               ))}
             </div>
           ) : (
-            <p className="text-gray-400">No work logs for today.</p>
+            <p className="text-gray-900">No work logs for today.</p>
           )}
 
           {/* แสดงผลลัพธ์การคำนวณรายได้ */}
           {earnings !== null && (
-            <div className="mt-4 text-center text-gray-300">
+            <div className="mt-4 text-center text-gray-900">
               <p className="text-lg">
-                <span className="font-semibold text-blue-400">
+                <span className="font-semibold text-sky-700">
                   Total Earnings:{" "}
                 </span>
                 {earnings}฿
@@ -101,7 +101,7 @@ const CalcuLate = () => {
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="mt-4 w-full flex justify-center py-3 px-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold rounded-lg shadow-lg hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200"
+              className="mt-4 w-full flex justify-center py-3 px-4 bg-gradient-to-r from-sky-500 to-teal-600 text-white font-bold rounded-lg shadow-lg hover:from-sky-600 hover:to-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200"
               type="submit"
               disabled={isLoading}
             >

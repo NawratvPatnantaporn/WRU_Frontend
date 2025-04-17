@@ -50,24 +50,24 @@ const EmployeeDetail = () => {
 
         <div className="space-y-6">
           <motion.div
-            className="p-6 bg-gray-800 bg-opacity-50 rounded-lg border border-gray-700"
+            className="p-6 bg-white bg-opacity-50 rounded-lg border border-gray-700"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <h3 className="text-xl font-semibold text-blue-400 mb-3">
+            <h3 className="text-xl font-bold mb-6 text-center bg-gradient-to-r from-sky-500 to-emerald-500 text-transparent bg-clip-text">
               Personal Information
             </h3>
-            <p className="text-gray-300">ฝ่าย: {employee.department}</p>
-            <p className="text-gray-300">ชื่อ: {employee.name}</p>
-            <p className="text-gray-300">
+            <p className="text-gray-700">ฝ่าย: {employee.department}</p>
+            <p className="text-gray-700">ชื่อ: {employee.name}</p>
+            <p className="text-gray-700">
               เลขที่ประจำตัวประชาชน: {employee.idcard}
             </p>
-            <p className="text-gray-300">อีเมล: {employee.email}</p>
-            <p className="text-gray-300">
+            <p className="text-gray-700">อีเมล: {employee.email}</p>
+            <p className="text-gray-700">
               เบอร์โทรศัพท์: {employee.phonenumber}
             </p>
-            <p className="text-gray-300">
+            <p className="text-gray-700">
               วันแรกที่เข้าทำงาน:{" "}
               {new Date(employee.startWorkDate).toLocaleDateString("th-TH", {
                 year: "numeric",
@@ -75,7 +75,7 @@ const EmployeeDetail = () => {
                 day: "numeric",
               })}
             </p>
-            <p className="text-gray-300">
+            <p className="text-gray-700">
               วันที่ครบสัญญาจ้าง:{" "}
               {new Date(employee.contractEndDate).toLocaleDateString("th-TH", {
                 year: "numeric",
@@ -87,18 +87,18 @@ const EmployeeDetail = () => {
 
           {/* แสดงข้อมูลการทำงานประจำวัน */}
           <motion.div
-            className="p-6 bg-gray-800 bg-opacity-50 rounded-lg border border-gray-700"
+            className="p-6 bg-white bg-opacity-50 rounded-lg border border-gray-700"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
-            <h3 className="text-xl font-semibold text-blue-400 mb-3">
+            <h3 className="text-xl font-bold mb-6 text-center bg-gradient-to-r from-sky-500 to-emerald-500 text-transparent bg-clip-text">
               Daily Work Logs (Today)
             </h3>
             {todayWorkLogs.length > 0 ? (
               <div className="space-y-4">
                 {todayWorkLogs.map((work, index) => (
-                  <div key={index} className="text-gray-300">
+                  <div key={index} className="text-gray-700">
                     <p>
                       <strong>วันที่:</strong>{" "}
                       {new Date(work.date).toLocaleDateString("th-TH")}
@@ -117,7 +117,7 @@ const EmployeeDetail = () => {
                 ))}
               </div>
             ) : (
-              <p className="text-gray-300">ไม่มีข้อมูลการทำงานในวันนี้</p>
+              <p className="text-gray-700">ไม่มีข้อมูลการทำงานในวันนี้</p>
             )}
             <div className="flex justify-between items-center mt-6">
               <Link

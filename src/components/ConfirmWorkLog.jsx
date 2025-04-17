@@ -198,12 +198,12 @@ const ConfirmWorkLog = () => {
 
   return (
     <motion.div
-      className="bg-gray-900 shadow-lg rounded-lg p-8 mb-8 max-w-xl mx-auto"
+      className="bg-white bg-opacity-50 backdrop-blur-xl shadow-lg rounded-lg p-8 mb-8 max-w-xl mx-auto"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
     >
-      <h1 className="text-3xl font-bold mb-6 text-blue-400">
+      <h1 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-sky-500 to-emerald-500 text-transparent bg-clip-text">
         Approve Work Logs
       </h1>
       <div className="overflow-y-auto max-h-96 ">
@@ -216,34 +216,34 @@ const ConfirmWorkLog = () => {
             {users.map((user) => (
               <li
                 key={user._id}
-                className="p-4 border rounded-lg shadow-md bg-gray-800"
+                className="p-4 border rounded-lg shadow-md bg-gray-300"
               >
-                <h3 className="text-xl font-semibold text-white">
+                <h3 className="text-xl font-semibold text-gray-700">
                   {user.name}
                 </h3>
-                <p className="text-white">{user.email}</p>
-                <h4 className="mt-4 text-lg font-semibold text-blue-400">
+                <p className="text-black">{user.email}</p>
+                <h4 className="mt-4 text-lg font-semibold text-gray-700">
                   Pending Work Logs:
                 </h4>
                 {user.pendingWorkLogs.length === 0 ? (
-                  <p className="text-white">No pending work logs</p>
+                  <p className="text-black">No pending work logs</p>
                 ) : (
                   <ul className="mt-2 space-y-4">
                     {user.pendingWorkLogs.map((log, index) => (
                       <li
                         key={index}
-                        className="border p-4 rounded-lg shadow-sm bg-gray-800"
+                        className="border p-4 rounded-lg shadow-sm bg-gray-400"
                       >
-                        <p className="text-sm text-white">
+                        <p className="text-sm text-black">
                           Date: {new Date(log.date).toLocaleDateString()}
                         </p>
-                        <p className="text-sm text-white">
+                        <p className="text-sm text-black">
                           Task Details: {log.taskDetails}
                         </p>
-                        <p className="text-sm text-white">
+                        <p className="text-sm text-black">
                           Progress Level: {log.progressLevel}
                         </p>
-                        <p className="text-sm text-white">
+                        <p className="text-sm text-black">
                           Hours Worked: {log.hoursWorked}
                         </p>
                         <button

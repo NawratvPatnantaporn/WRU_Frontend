@@ -72,23 +72,23 @@ function App() {
 	if (isCheckingAuth) return <LoadingSpinner />;
 
 	return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-600 via-blue-800 to-blue-900 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-sky-200 via-sky-300 to-blue-400 text-gray-900 relative overflow-hidden">
       <FloatingShape
-        color="bg-yellow-500"
+        color="bg-yellow-300"
         size="w-64 h-64"
         top="-5%"
         left="10%"
         delay={0}
       />
       <FloatingShape
-        color="bg-yellow-500"
+        color="bg-yellow-300"
         size="w-48 h-48"
         top="70%"
         left="80%"
         delay={5}
       />
       <FloatingShape
-        color="bg-yellow-500"
+        color="bg-yellow-300"
         size="w-32 h-32"
         top="40%"
         left="-10%"

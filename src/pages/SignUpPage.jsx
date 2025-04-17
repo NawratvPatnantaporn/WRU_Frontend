@@ -119,11 +119,10 @@ const SignUpPage = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="sm:mx-auto sm:w-full sm:max-w-md bg-gray-800 bg-opacity-50 backdrop-filter backdrop-blur-xl rounded-2xl shadow-xl 
-			overflow-hidden"
+        className="sm:mx-auto sm:w-full sm:max-w-md bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl overflow-hidden border border-gray-200"
       >
         <div className="p-8">
-          <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r text-white text-transparent bg-clip-text">
+          <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-sky-500 to-emerald-500 text-transparent bg-clip-text">
             Create Your Account
           </h2>
 
@@ -152,29 +151,6 @@ const SignUpPage = () => {
               name="department"
               onChange={handleChange}
             />
-            {/* <div className="relative mb-4">
-              <Computer
-                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500"
-                size={20}
-              />
-              <select
-                id="department"
-                name="department"
-                value={newEmployee.department}
-                onChange={(e) =>
-                  setNewEmployee({ ...newEmployee, department: e.target.value })
-                }
-                className="w-full pl-10 pr-3 py-2 bg-gray-800 bg-opacity-50 rounded-lg border border-gray-700 focus:border-green-500 focus:ring-2 focus:ring-green-500 text-white placeholder-gray-400 transition duration-200 appearance-none"
-                required
-              >
-                <option value="">Select a department</option>
-                {departments.map((department) => (
-                  <option key={department} value={department}>
-                    {department}
-                  </option>
-                ))}
-              </select>
-            </div> */}
             <Input
               icon={IdCard}
               type="text"
@@ -191,39 +167,29 @@ const SignUpPage = () => {
               name="phonenumber"
               onChange={handleChange}
             />
-            {/* <Input
-              icon={KeyRound}
-              type="password"
-              placeholder="Password"
-              value={newEmployee.password}
-              name="password"
-              onChange={handleChange}
-            />
-            <PasswordStrengthMeter password={newEmployee.password} /> */}
 
             <motion.button
-              className="mt-5 flex justify-center w-full py-3 px-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold rounded-lg shadow-lg hover:from-blue-600
-						hover:to-emerald-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2
-						 focus:ring-offset-gray-900 transition duration-200"
+              className="mt-5 flex justify-center w-full py-3 px-4 bg-gradient-to-r from-sky-500 to-emerald-500 text-white font-bold rounded-lg shadow-md hover:from-sky-600 hover:to-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 transition duration-200"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               type="submit"
               disabled={isLoading}
             >
               {isLoading ? (
-                <Loader className=" animate-spin mx-auto" size={24} />
+                <Loader className="animate-spin mx-auto" size={24} />
               ) : (
                 <>
-                  <UserPlus /> Sign Up
+                  <UserPlus className="mr-2" /> Sign Up
                 </>
               )}
             </motion.button>
           </form>
         </div>
-        <div className="px-8 py-4 bg-gray-900 bg-opacity-50 flex justify-center">
-          <p className="text-sm text-gray-400">
+
+        <div className="px-8 py-4 bg-gray-100 border-t border-gray-200 flex justify-center">
+          <p className="text-sm text-gray-600">
             Already have an account?{" "}
-            <Link to={"/login"} className="text-yellow-400 hover:underline">
+            <Link to={"/login"} className="text-sky-700 hover:underline">
               Login here <ArrowRight className="inline h-4 w-4" />
             </Link>
           </p>

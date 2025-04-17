@@ -13,7 +13,9 @@ services:
       - ../../Back/package.json:/app/package.json
     command: yarn nodemon
     networks:
-      - app-net  
+      - app-net 
+    depends_on: # ให้ Backend รอ MongoDB ก่อนสตาร์ท
+      - mongo 
 
   frontend:
     container_name: frontend
@@ -21,7 +23,7 @@ services:
     ports:
       - 30101:5173
     depends_on:
-      - backend   # ✅ รอ backend ก่อน
+      - backend   # รอ backend ก่อน
     networks:
       - app-net
 
@@ -32,8 +34,12 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: 1234
     ports:
       - 27017:27017
+    volumes: # เพิ่ม Volume เพื่อเก็บข้อมูล MongoDB
+      - mongo_data:/data/db
     networks:
       - app-net
+volumes:
+  mongo_data: # เก็บข้อมูล MongoDB ถาวร
 
 networks:
   app-net:

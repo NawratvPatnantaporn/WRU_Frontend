@@ -31,28 +31,28 @@ const DashboardPage = () => {
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.9 }}
       transition={{ duration: 0.5 }}
-      className="max-w-md w-full mx-auto mt-10 p-8 bg-gray-900 bg-opacity-80 backdrop-filter backdrop-blur-lg rounded-xl shadow-2xl border border-gray-800"
+      className="max-w-md w-full mx-auto mt-10 p-8 bg-white bg-opacity-50 backdrop-blur-xl rounded-xl shadow-2xl border border-gray-200"
     >
-      <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r text-white text-transparent bg-clip-text">
+      <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-sky-500 to-emerald-500 text-transparent bg-clip-text">
         My Profile
       </h2>
 
       <div className="space-y-6">
         <motion.div
-          className="p-4 bg-gray-800 bg-opacity-50 rounded-lg border border-gray-700"
+          className="p-4 bg-sky-50 rounded-lg border border-sky-200"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <h3 className="text-xl font-semibold text-blue-400 mb-3">
-            Profile Information
+          <h3 className="text-xl font-semibold text-sky-700 mb-3">
+            ข้อมูลส่วนตัว
           </h3>
-          <p className="text-gray-300">แผนกที่สังกัด : {user.department}</p>
-          <p className="text-gray-300">ชื่อ : {user.name}</p>
-          <p className="text-gray-300">เลขที่ประจำตัวประชาชน : {user.idcard}</p>
-          <p className="text-gray-300">อีเมล : {user.email}</p>
-          <p className="text-gray-300">เบอร์โทรศัพท์ : {user.phonenumber}</p>
-          <p className="text-gray-300">
+          <p className="text-gray-800">แผนกที่สังกัด : {user.department}</p>
+          <p className="text-gray-800">ชื่อ : {user.name}</p>
+          <p className="text-gray-800">เลขที่ประจำตัวประชาชน : {user.idcard}</p>
+          <p className="text-gray-800">อีเมล : {user.email}</p>
+          <p className="text-gray-800">เบอร์โทรศัพท์ : {user.phonenumber}</p>
+          <p className="text-gray-800">
             วันแรกที่เข้าทำงาน :{" "}
             {new Date(user.startWorkDate).toLocaleDateString("th-TH", {
               year: "numeric",
@@ -60,7 +60,7 @@ const DashboardPage = () => {
               day: "numeric",
             })}
           </p>
-          <p className="text-gray-300">
+          <p className="text-gray-800">
             วันที่ครบสัญญาจ้าง :{" "}
             {new Date(user.contractEndDate).toLocaleDateString("th-TH", {
               year: "numeric",
@@ -68,26 +68,27 @@ const DashboardPage = () => {
               day: "numeric",
             })}
           </p>
-          <p className="text-gray-300">
+          <p className="text-gray-800">
             อายุการทำงานรวม : {user.totalWorkDuration}
           </p>
-          <p className="text-gray-300">
+          <p className="text-gray-800">
             จะหมดสัญญาใน : {user.remainingContractDuration}
           </p>
         </motion.div>
+
         <motion.div
-          className="p-4 bg-gray-800 bg-opacity-50 rounded-lg border border-gray-700"
+          className="p-4 bg-sky-50 rounded-lg border border-sky-200"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          <h3 className="text-xl font-semibold text-blue-400 mb-3">
-            Today's Work Logs
+          <h3 className="text-xl font-semibold text-sky-700 mb-3">
+            ข้อมูลการทำงานวันนี้
           </h3>
           {todayWorkLogs.length > 0 ? (
             <div className="space-y-4">
               {todayWorkLogs.map((work, index) => (
-                <div key={index} className="text-gray-300">
+                <div key={index} className="text-gray-800">
                   <p>
                     <strong>วันที่ :</strong>{" "}
                     {new Date(work.date).toLocaleDateString("th-TH")}
@@ -105,7 +106,7 @@ const DashboardPage = () => {
               ))}
             </div>
           ) : (
-            <p className="text-white">ยังไม่มีข้อมูลการทำงานสำหรับวันนี้</p>
+            <p className="text-gray-600">ยังไม่มีข้อมูลการทำงานสำหรับวันนี้</p>
           )}
         </motion.div>
       </div>
@@ -120,11 +121,11 @@ const DashboardPage = () => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={handleLogout}
-          className="w-full py-3 px-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white 
-				font-bold rounded-lg shadow-lg hover:from-blue-600 hover:to-emerald-700
-				 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+          className="w-full py-3 px-4 bg-gradient-to-r from-sky-500 to-sky-600 text-white 
+            font-bold rounded-lg shadow-md hover:from-sky-600 hover:to-emerald-600
+            focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
         >
-          Logout
+          ออกจากระบบ
         </motion.button>
       </motion.div>
     </motion.div>

@@ -84,17 +84,17 @@ const StatusPage = () => {
     };
   return (
     <motion.div
-      className="bg-gray-900 shadow-lg rounded-lg p-8 mb-8 max-w-xl mx-auto"
+      className="bg-white bg-opacity-50 backdrop-blur-xl shadow-lg rounded-lg p-8 mb-8 max-w-xl mx-auto"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
     >
-      <h1 className="text-3xl font-bold mb-6 text-blue-400">
+      <h1 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-sky-500 to-emerald-500 text-transparent bg-clip-text">
         Recording Rejected Work
       </h1>
       <div className="overflow-y-auto max-h-96 ">
         {pendingLogs.length === 0 ? (
-          <p className="text-white text-center text-xl">
+          <p className="text-black text-center text-xl">
             No pending work logs found
           </p>
         ) : (
@@ -102,18 +102,18 @@ const StatusPage = () => {
             {pendingLogs.map((log) => (
               <li
                 key={log._id}
-                className="p-4 border rounded-lg shadow-md bg-gray-800"
+                className="p-4 border rounded-lg shadow-md bg-gray-400"
               >
-                <p className="text-sm text-white">
+                <p className="text-sm text-black">
                   Date: {new Date(log.date).toLocaleDateString()}
                 </p>
-                <p className="text-sm text-white">
+                <p className="text-sm text-black">
                   Task Details: {log.taskDetails}
                 </p>
-                <p className="text-sm text-white">
+                <p className="text-sm text-black">
                   Progress Level: {log.progressLevel}
                 </p>
-                <p className="text-sm text-white">
+                <p className="text-sm text-black">
                   Hours Worked: {log.hoursWorked}
                 </p>
                 <button
