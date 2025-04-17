@@ -19,7 +19,7 @@ pipeline {
                 checkout([
                     $class: 'GitSCM',
                     branches: [[name: '*/main']],
-                    extensions: [[$class: 'CleanCheckout']], // ล้าง workspace ก่อน checkout
+                    extensions: [[$class: 'CleanCheckout']],
                     userRemoteConfigs: [[credentialsId: 'nawarat', url: 'https://github.com/NawratvPatnantaporn/WRU_Project.git']]
                 ])
 
@@ -36,8 +36,8 @@ pipeline {
 
         stage('Verify Files') {
             steps {
-                sh 'ls -la' // ตรวจสอบโครงสร้างไฟล์
-                sh 'ls -la frontend' // ตรวจสอบโฟลเดอร์ frontend (ถ้ามี)
+                sh 'ls -la' // ✅ ตรวจสอบไฟล์ใน Root Directory
+                sh 'cat Dockerfile' // ✅ ตรวจสอบว่า Dockerfile มีอยู่
             }
         }
 
@@ -49,11 +49,7 @@ pipeline {
 
         stage('Run MongoDB') {
             steps {
-                sh "docker run -d --name mongo --network ${DOCKER_NETWORK} \
-                    -p 27017:27017 \
-                    -e MONGO_INITDB_ROOT_USERNAME=admin \
-                    -e MONGO_INITDB_ROOT_PASSWORD=1234 \
-                    mongo:latest"
+                sh "docker run -d --name mongo --network ${DOCKER_NETWORK} -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=1234 mongo:latest"
             }
         }
 
@@ -61,27 +57,16 @@ pipeline {
             steps {
                 dir('backend') {
                     sh "docker build -t wru_backend ."
-                    sh "docker run -d --name wru_backend-run \
-                        --network ${DOCKER_NETWORK} \
-                        -p 30100:50100 \
-                        wru_backend"
+                    sh "docker run -d --name wru_backend-run --network ${DOCKER_NETWORK} -p 30100:50100 wru_backend"
                 }
             }
         }
 
         stage('Build & Run Frontend') {
             steps {
-                // เปลี่ยนไปทำงานในโฟลเดอร์ frontend ถ้า Dockerfile อยู่ที่นั่น
-                dir('frontend') { 
-                    sh "docker build \
-                        --build-arg VITE_API_AUTH_URL=http://wru_backend-run:50100/api/auth \
-                        -t wru_frontend ."
-                    
-                    sh "docker run -d --name wru_frontend-run \
-                        --network ${DOCKER_NETWORK} \
-                        -p 30101:5173 \
-                        wru_frontend"
-                }
+                // ✅ Build จาก Root Directory โดยไม่ใช้ dir('frontend')
+                sh "docker build --build-arg VITE_API_AUTH_URL=http://wru_backend-run:50100/api/auth -t wru_frontend ."
+                sh "docker run -d --name wru_frontend-run --network ${DOCKER_NETWORK} -p 30101:5173 wru_frontend"
             }
         }
 
