@@ -36,8 +36,9 @@ pipeline {
 
         stage('Verify Files') {
             steps {
-                sh 'ls -la' // ✅ ตรวจสอบไฟล์ใน Root Directory
-                sh 'cat Dockerfile' // ✅ ตรวจสอบว่า Dockerfile มีอยู่
+                sh 'ls -la'          // ตรวจสอบไฟล์ทั้งหมดใน Root Directory
+                sh 'pwd'             // แสดง path ปัจจุบัน
+                sh 'find . -name Dockerfile'  // ค้นหาไฟล์ Dockerfile ทั้ง Workspace
             }
         }
 
