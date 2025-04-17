@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         PATH = "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-        DOCKER_NETWORK = "app-net" // กำหนดชื่อ Network
+        DOCKER_NETWORK = "app-net"
     }
     stages {
         stage('Debug Path') {
@@ -19,6 +19,7 @@ pipeline {
                 checkout([
                     $class: 'GitSCM',
                     branches: [[name: '*/main']],
+                    extensions: [[$class: 'CleanCheckout']], // ล้าง workspace ก่อน checkout
                     userRemoteConfigs: [[credentialsId: 'nawarat', url: 'https://github.com/NawratvPatnantaporn/WRU_Project.git']]
                 ])
 
@@ -33,56 +34,68 @@ pipeline {
             }
         }
 
+        stage('Verify Files') {
+            steps {
+                sh 'ls -la' // ตรวจสอบโครงสร้างไฟล์
+                sh 'ls -la frontend' // ตรวจสอบโฟลเดอร์ frontend (ถ้ามี)
+            }
+        }
+
         stage('Prepare Network') {
             steps {
-                // สร้าง Docker Network ถ้ายังไม่มี
-                sh "docker network create ${DOCKER_NETWORK} || true"
+                sh "docker network inspect ${DOCKER_NETWORK} || docker network create ${DOCKER_NETWORK}"
             }
         }
 
         stage('Run MongoDB') {
             steps {
-                // รัน MongoDB Container
-                sh "docker run -d --name mongo --network ${DOCKER_NETWORK} -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=1234 mongo:latest"
+                sh "docker run -d --name mongo --network ${DOCKER_NETWORK} \
+                    -p 27017:27017 \
+                    -e MONGO_INITDB_ROOT_USERNAME=admin \
+                    -e MONGO_INITDB_ROOT_PASSWORD=1234 \
+                    mongo:latest"
             }
         }
 
         stage('Build & Run Backend') {
             steps {
                 dir('backend') {
-                    // Build Backend Image
                     sh "docker build -t wru_backend ."
-
-                    // รัน Backend Container
-                    sh "docker rm -f wru_backend-run || true"
-                    sh "docker run -d --name wru_backend-run --network ${DOCKER_NETWORK} -p 30100:50100 wru_backend"
+                    sh "docker run -d --name wru_backend-run \
+                        --network ${DOCKER_NETWORK} \
+                        -p 30100:50100 \
+                        wru_backend"
                 }
             }
         }
 
         stage('Build & Run Frontend') {
             steps {
-                // Build Frontend Image พร้อมส่ง Environment Variables
-                sh "docker build --build-arg VITE_API_AUTH_URL=http://wru_backend-run:50100/api/auth -t wru_frontend ."
-
-                // รัน Frontend Container
-                sh "docker rm -f wru_frontend-run || true"
-                sh "docker run -d --name wru_frontend-run --network ${DOCKER_NETWORK} -p 30101:5173 wru_frontend"
+                // เปลี่ยนไปทำงานในโฟลเดอร์ frontend ถ้า Dockerfile อยู่ที่นั่น
+                dir('frontend') { 
+                    sh "docker build \
+                        --build-arg VITE_API_AUTH_URL=http://wru_backend-run:50100/api/auth \
+                        -t wru_frontend ."
+                    
+                    sh "docker run -d --name wru_frontend-run \
+                        --network ${DOCKER_NETWORK} \
+                        -p 30101:5173 \
+                        wru_frontend"
+                }
             }
         }
 
         stage('Test') {
             steps {
-                // ทดสอบระบบ (ตัวอย่าง)
-                sh 'curl -I http://localhost:30100/api/auth/check-auth'
+                sh 'curl -Is http://localhost:30100/api/auth/check-auth | head -n 1'
+                sh 'docker logs wru_backend-run --tail 50'
             }
         }
     }
 
     post {
         always {
-            // แสดงสถานะ Containers
-            sh 'docker ps -a'
+            sh 'docker ps -a --format "table {{.Names}}\\t{{.Status}}\\t{{.Ports}}"'
             sh 'docker network inspect ${DOCKER_NETWORK}'
         }
     }
