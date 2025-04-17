@@ -21,6 +21,7 @@ pipeline {
         
         stage('Checkout') {
             steps {
+                // Checkout Frontend
                 checkout([
                     $class: 'GitSCM',
                     branches: [[name: '*/main']],
@@ -28,6 +29,7 @@ pipeline {
                     userRemoteConfigs: [[credentialsId: 'Nawarat', url: 'https://github.com/NawratvPatnantaporn/WRU_Project.git']]
                 ])
 
+                // Checkout Backend
                 dir('backend') {
                     checkout([
                         $class: 'GitSCM',
@@ -40,9 +42,9 @@ pipeline {
 
         stage('Verify Files') {
             steps {
-                sh 'ls -la'          
-                sh 'pwd'             
-                sh 'find . -name Dockerfile'  
+                sh 'ls -la'          // ตรวจสอบไฟล์ทั้งหมดใน Root Directory
+                sh 'pwd'             // แสดง path ปัจจุบัน
+                sh 'find . -name Dockerfile'  // ค้นหาไฟล์ Dockerfile ทั้ง Workspace
             }
         }
 
@@ -54,7 +56,7 @@ pipeline {
 
         stage('Run MongoDB') {
             steps {
-                sh "docker rm -f mongo || true"  
+                sh "docker rm -f mongo || true"  // ✅ ลบ Container เก่า (ถ้ามี)
                 sh "docker run -d --name mongo --network ${DOCKER_NETWORK} -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=1234 mongo:latest"
             }
         }
@@ -63,14 +65,14 @@ pipeline {
             steps {
                 dir('backend') {
                     sh "docker build -t wru_backend ."
-                    sh "docker run -d --name backend --network ${DOCKER_NETWORK} -p 30100:50100 wru_backend"  // ✅ เปลี่ยนชื่อ Container เป็น "backend"
+                    sh "docker run -d --name wru_backend-run --network ${DOCKER_NETWORK} -p 30100:50100 wru_backend"
                 }
             }
         }
 
         stage('Build & Run Frontend') {
             steps {
-                // ✅ ใช้ชื่อ Service "backend" ใน Docker Network
+                // ✅ ใช้ชื่อ Service "backend" แทนชื่อ Container (ตาม compose.yaml)
                 sh "docker build --build-arg VITE_API_AUTH_URL=http://backend:50100/api/auth -t wru_frontend ."
                 sh "docker run -d --name wru_frontend-run --network ${DOCKER_NETWORK} -p 30101:5173 wru_frontend"
             }
@@ -79,7 +81,7 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'curl -Is http://localhost:30100/api/auth/check-auth | head -n 1'
-                sh 'docker logs backend --tail 50'  // ✅ เปลี่ยนชื่อ Container เป็น "backend"
+                sh 'docker logs wru_backend-run --tail 50'
             }
         }
     }
