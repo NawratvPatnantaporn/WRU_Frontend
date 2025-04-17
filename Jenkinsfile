@@ -76,6 +76,8 @@ pipeline {
                 sh 'ls -la'
                 sh 'find . -name Dockerfile'
 
+                sh 'find . -type f | grep -i docker'
+
                 dir('frontend') {
                     sh 'pwd'
                     sh 'ls -la'
