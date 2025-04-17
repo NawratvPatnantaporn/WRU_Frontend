@@ -71,12 +71,13 @@ pipeline {
         }
 
         stage('Build & Run Frontend') {
-            steps {
-                // ✅ ใช้ชื่อ Service "backend" แทนชื่อ Container (ตาม compose.yaml)
-                sh "docker build --build-arg VITE_API_AUTH_URL=http://backend:50100/api/auth -t wru_frontend ."
-                sh "docker run -d --name wru_frontend-run --network ${DOCKER_NETWORK} -p 30101:5173 wru_frontend"
-            }
+    steps {
+        dir('frontend') {
+            sh "docker build --build-arg VITE_API_AUTH_URL=http://backend:50100/api/auth -t wru_frontend ."
+            sh "docker run -d --name wru_frontend-run --network ${DOCKER_NETWORK} -p 30101:5173 wru_frontend"
         }
+    }
+}
 
         stage('Test') {
             steps {
