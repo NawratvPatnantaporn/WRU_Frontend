@@ -71,13 +71,19 @@ pipeline {
         }
 
         stage('Build & Run Frontend') {
-    steps {
-        dir('frontend') {
-            sh "docker build --build-arg VITE_API_AUTH_URL=http://backend:50100/api/auth -t wru_frontend ."
-            sh "docker run -d --name wru_frontend-run --network ${DOCKER_NETWORK} -p 30101:5173 wru_frontend"
+            steps {
+                sh 'pwd'
+                sh 'ls -la'
+                sh 'find . -name Dockerfile'
+
+                dir('frontend') {
+                    sh 'pwd'
+                    sh 'ls -la'
+                    sh "docker build --build-arg VITE_API_AUTH_URL=http://backend:50100/api/auth -t wru_frontend ."
+                    sh "docker run -d --name wru_frontend-run --network ${DOCKER_NETWORK} -p 30101:5173 wru_frontend"
+                }
+            }
         }
-    }
-}
 
         stage('Test') {
             steps {
