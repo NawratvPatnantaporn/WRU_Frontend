@@ -3,7 +3,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 // import toast from "react-hot-toast";
 
-const API_URL = "http://localhost:50100/api/auth";
+const API_URL = import.meta.env.VITE_API_AUTH_URL;
+console.log("API_URL:", API_URL);
 
 axios.defaults.withCredentials = true;
 
@@ -21,7 +22,7 @@ export const useAuthStore = create((set) => ({
     department,
     idcard,
     phonenumber,
-    password
+    // password
   ) => {
     set({ isLoading: true, error: null });
 
@@ -30,8 +31,8 @@ export const useAuthStore = create((set) => ({
       !name ||
       !department ||
       !idcard ||
-      !phonenumber ||
-      !password
+      !phonenumber 
+      // !password
     ) {
       const missingFields = [];
 
@@ -41,7 +42,7 @@ export const useAuthStore = create((set) => ({
       if (!department) missingFields.push("แผนก");
       if (!idcard) missingFields.push("รหัสบัตรประชาชน");
       if (!phonenumber) missingFields.push("หมายเลขโทรศัพท์");
-      if (!password) missingFields.push("รหัสผ่าน");
+      // if (!password) missingFields.push("รหัสผ่าน");
 
       // แสดงข้อความแจ้งเตือนด้วย toast
       toast.error(`กรุณากรอกข้อมูล: ${missingFields.join(", ")}`, {
@@ -59,7 +60,7 @@ export const useAuthStore = create((set) => ({
         department,
         idcard,
         phonenumber,
-        password,
+        // password,
       });
       set({
         user: response.data.user,
@@ -74,12 +75,13 @@ export const useAuthStore = create((set) => ({
       throw error;
     }
   },
-  login: async (email, password) => {
+  login: async (email, idcard) => {
     set({ isLoading: true, error: null });
     try {
       const response = await axios.post(`${API_URL}/login`, {
         email,
-        password,
+        idcard
+        // password,
       });
       set({
         isAuthenticated: true,

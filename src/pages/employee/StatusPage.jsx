@@ -10,7 +10,7 @@ const StatusPage = () => {
       const fetchUserPendingLogs = async () => {
         try {
           const response = await axios.get(
-            "http://localhost:50100/api/worklog/userRefuseWorkLogs",
+            import.meta.env.VITE_API_USER_REFUSE_URL ,
             {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -50,7 +50,7 @@ const StatusPage = () => {
       if (result.isConfirmed) {
         try {
           const response = await axios.post(
-            `http://localhost:50100/api/worklog/DeleteAddWork/${workLogId}`,
+            `${import.meta.env.VITE_API_USER_DELETE_WORK_URL}/${workLogId}`,
             {}, // ไม่มี body
             {
               headers: {

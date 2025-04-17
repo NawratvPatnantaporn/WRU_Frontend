@@ -14,7 +14,7 @@ const Attendance = () => {
       setIsLoading(true);
       try {
         const response = await axios.get(
-          "http://localhost:50100/api/employees",
+          import.meta.env.VITE_API_EMPLOYEES_URL ,
           { withCredentials: true }
         );
         setEmployees(response.data);

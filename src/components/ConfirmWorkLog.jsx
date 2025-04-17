@@ -9,13 +9,26 @@ const ConfirmWorkLog = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  // const getAuthToken = () => {
+  //   const token = localStorage.getItem("token");
+  //   if (!token) {
+  //     Swal.fire("Error", "Token not found. Please login again.", "error");
+  //     return null;
+  //   }
+  //   return token;
+  // };
+
+
   // ดึงข้อมูลผู้ใช้ที่มี pendingWorkLogs
   useEffect(() => {
     const fetchUsersWithPendingLogs = async () => {
+      // const token = getAuthToken();
+      // if (!token) return;
+
       try {
         setLoading(true);
         const response = await axios.get(
-          "http://localhost:50100/api/worklog/PendingWorkLogs",
+          import.meta.env.VITE_API_PENDING_WORK_URL ,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -38,6 +51,9 @@ const ConfirmWorkLog = () => {
 
   // ฟังก์ชันอนุมัติ work log
   const handleApprove = async (userId, workLogId, workLog) => {
+    // const token = getAuthToken();
+    // if (!token) return;
+
     const result = await Swal.fire({
       title: "Please confirm",
       text: "Do you want to approve this work log?",
@@ -59,7 +75,7 @@ const ConfirmWorkLog = () => {
       try {
         setLoading(true);
         const response = await axios.post(
-          `http://localhost:50100/api/worklog/approveWorkLog/${userId}/${workLogId}`,
+          `${import.meta.env.VITE_API_APPROVE_WORK_URL}/${userId}/${workLogId}`,
           {}, // หากต้องการส่งข้อมูลใด ๆ สามารถเพิ่มที่นี่
           {
             headers: {
@@ -107,6 +123,9 @@ const ConfirmWorkLog = () => {
 
   // ฟังก์ชันปฏิเสธ work log
   const handleReject = async (userId, workLogId, workLog) => {
+    // const token = getAuthToken();
+    // if (!token) return;
+    
     const result = await Swal.fire({
       title: "Are you sure?",
       text: "Do you want to reject this work log?",
@@ -128,7 +147,7 @@ const ConfirmWorkLog = () => {
       try {
         setLoading(true);
         const response = await axios.post(
-          `http://localhost:50100/api/worklog/rejectWorkLog/${userId}/${workLogId}`,
+          `${import.meta.env.VITE_API_REJECT_WORK_URL}/${userId}/${workLogId}`,
           {}, // หากต้องการส่งข้อมูลใด ๆ สามารถเพิ่มที่นี่
           {
             headers: {

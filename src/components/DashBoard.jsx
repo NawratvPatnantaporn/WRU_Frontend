@@ -16,7 +16,7 @@ const Dashboard = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:50100/api/employees", {
+      const response = await axios.get(import.meta.env.VITE_API_EMPLOYEES_URL , {
         withCredentials: true,
       });
       const employees = response.data;

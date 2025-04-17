@@ -9,7 +9,7 @@ const EmployeeDetail = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:50100/api/employees/read/${id}`)
+      .get(`${import.meta.env.VITE_API_EMP_DETAIL_URL}/${id}`)
       .then((res) => {
         setEmployee(res.data.employee); 
       })

@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [idcard, setIdcard] = useState("");
 
   const { login, isLoading } = useAuthStore();
   //, error
@@ -16,7 +16,7 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       // พยายามเข้าสู่ระบบ
-      await login(email, password);
+      await login(email, idcard);
     } catch (error) {
       console.log(error);
 
@@ -70,9 +70,9 @@ const LoginPage = () => {
               icon={KeyRound}
               type="password"
               placeholder="Password"
-              value={password}
-              name="password"
-              onChange={(e) => setPassword(e.target.value)}
+              value={idcard}
+              name="idcard"
+              onChange={(e) => setIdcard(e.target.value)}
             />
 
             <div className="flex items-center mb-6">

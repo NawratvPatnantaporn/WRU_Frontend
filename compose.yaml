@@ -1,13 +1,30 @@
 services:
   backend:
+    container_name: backend   
     image: 'projectback'
     ports:
       - 30100:50100
+    env_file:
+      - ../../Back/.env 
     environment:
-      - MONGOURL=mongodb://admin:1234@mongo:27017/mydb?authSource=mydb
       - NODE_OPTIONS=--max-old-space-size=4096
+    volumes:
+      - ../../Back/src:/app/src
+      - ../../Back/package.json:/app/package.json
+    command: yarn nodemon
+    networks:
+      - app-net  
+
   frontend:
+    container_name: frontend
     build: '.'
+    ports:
+      - 30101:5173
+    depends_on:
+      - backend   # ✅ รอ backend ก่อน
+    networks:
+      - app-net
+
   mongo:
     image: mongo:latest
     environment:
@@ -15,3 +32,9 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: 1234
     ports:
       - 27017:27017
+    networks:
+      - app-net
+
+networks:
+  app-net:
+    driver: bridge

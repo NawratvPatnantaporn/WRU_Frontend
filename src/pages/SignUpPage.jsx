@@ -6,13 +6,12 @@ import {
   Computer,
   IdCard,
   Phone,
-  KeyRound,
   UserPlus,
   ArrowRight,
 } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import PasswordStrengthMeter from "../components/PasswordStrengthMeter";
+// import PasswordStrengthMeter from "../components/PasswordStrengthMeter";
 import { useAuthStore } from "../store/authStore";
 import { Loader } from "lucide-react";
 import Swal from "sweetalert2";
@@ -34,7 +33,7 @@ const SignUpPage = () => {
     department: "",
     idcard: "",
     phonenumber: "",
-    password: "",
+    // password: "",
   });
   const navigate = useNavigate();
 
@@ -43,7 +42,7 @@ const SignUpPage = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
 
-    const { email, name, department, idcard, phonenumber, password } =
+    const { email, name, department, idcard, phonenumber } =
       newEmployee;
 
     // ตรวจสอบว่าไม่มีฟิลด์ใดๆ ที่ขาด
@@ -52,8 +51,8 @@ const SignUpPage = () => {
       !name ||
       !department ||
       !idcard ||
-      !phonenumber ||
-      !password
+      !phonenumber 
+      // !password
     ) {
       const missingFields = [];
 
@@ -63,7 +62,7 @@ const SignUpPage = () => {
       if (!department) missingFields.push("แผนก");
       if (!idcard) missingFields.push("รหัสบัตรประชาชน");
       if (!phonenumber) missingFields.push("หมายเลขโทรศัพท์");
-      if (!password) missingFields.push("รหัสผ่าน");
+      // if (!password) missingFields.push("รหัสผ่าน");
 
       // แสดงข้อความแจ้งเตือนด้วย Swal
       Swal.fire({
@@ -77,7 +76,7 @@ const SignUpPage = () => {
 
     try {
       // ส่งข้อมูลไปที่ API เพื่อสมัครสมาชิก
-      await signup(email, name, department, idcard, phonenumber, password);
+      await signup(email, name, department, idcard, phonenumber);
       // หากสมัครสมาชิกสำเร็จ นำทางไปหน้า homepage
       navigate("/homepage");
     } catch (error) {
@@ -192,7 +191,7 @@ const SignUpPage = () => {
               name="phonenumber"
               onChange={handleChange}
             />
-            <Input
+            {/* <Input
               icon={KeyRound}
               type="password"
               placeholder="Password"
@@ -200,7 +199,7 @@ const SignUpPage = () => {
               name="password"
               onChange={handleChange}
             />
-            <PasswordStrengthMeter password={newEmployee.password} />
+            <PasswordStrengthMeter password={newEmployee.password} /> */}
 
             <motion.button
               className="mt-5 flex justify-center w-full py-3 px-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold rounded-lg shadow-lg hover:from-blue-600

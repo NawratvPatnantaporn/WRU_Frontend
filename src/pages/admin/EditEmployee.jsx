@@ -23,7 +23,7 @@ const EditEmployee = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:50100/api/employees/read/${id}`)
+      .get(`${import.meta.env.VITE_API_EMP_DETAIL_URL}/${id}`)
       .then((res) => {
         setNewEmployee(res.data.employee);
         setCurrentEmployee(res.data.employee);
@@ -75,7 +75,7 @@ const EditEmployee = () => {
       if (result.isConfirmed) {
         // ส่งข้อมูลไปที่ API PUT
         await axios.put(
-          `http://localhost:50100/api/employees/${id}`,
+          `${import.meta.env.VITE_API_EMPLOYEES_URL}/${id}`,
           newEmployee,
           { withCredentials: true }
         );

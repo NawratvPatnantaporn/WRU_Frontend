@@ -45,7 +45,7 @@ const EmployeeList = () => {
         console.log("Deleting employee with ID:", id);
 
         // เรียก API DELETE เพื่อลบพนักงาน
-        await axios.delete(`http://localhost:50100/api/employees/${id}`, {
+        await axios.delete(`${import.meta.env.VITE_API_EMPLOYEES_URL}/${id}`, {
           withCredentials: true,
         });
 
@@ -190,6 +190,10 @@ const EmployeeList = () => {
             ))}
           </tbody>
         </table>
+      )}
+
+      {!loading && currentEmployees.length === 0 && (
+        <p className="text-center text-gray-300 py-4">ไม่พบข้อมูลพนักงาน</p>
       )}
 
       {/* Pagination and Search Box */}

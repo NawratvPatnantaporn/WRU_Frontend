@@ -31,7 +31,7 @@ const CalcuLate = () => {
     e.preventDefault();
     try {
       const response = await axios.get(
-        "http://localhost:50100/api/worklog/CalcuLate"
+        import.meta.env.VITE_API_CALCULATE_URL
       );
       setEarnings(response.data.totalEarnings);
       setError(""); // เคลียร์ข้อผิดพลาดที่อาจเกิดขึ้น

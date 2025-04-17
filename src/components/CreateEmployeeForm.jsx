@@ -17,10 +17,10 @@ const CreateEmployeeForm = () => {
         department:"",
         idcard: "",
         phonenumber: "",
-        password: "",
+        // password: "",
     });
 
-    const { isLoading } = useAuthStore
+    const isLoading = useAuthStore((state) => state.isLoading);
 
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -28,7 +28,7 @@ const CreateEmployeeForm = () => {
       try {
         // Send a POST request to create a new employee
         const response = await axios.post(
-          "http://localhost:50100/api/employees/create",
+          import.meta.env.VITE_API_CREATE_EMP_URL ,
           newEmployee,
           {
             headers: {
@@ -56,7 +56,7 @@ const CreateEmployeeForm = () => {
           department: "",
           idcard: "",
           phonenumber: "",
-          password: "",
+          // password: "",
         });
       } catch (error) {
         // Handle errors and show the backend error message
@@ -146,7 +146,7 @@ const CreateEmployeeForm = () => {
               setNewEmployee({ ...newEmployee, phonenumber: e.target.value })
             }
           />
-          <Input
+          {/* <Input
             icon={KeyRound}
             type="password"
             placeholder="Password"
@@ -154,7 +154,7 @@ const CreateEmployeeForm = () => {
             onChange={(e) =>
               setNewEmployee({ ...newEmployee, password: e.target.value })
             }
-          />
+          /> */}
         </div>
 
         <motion.button

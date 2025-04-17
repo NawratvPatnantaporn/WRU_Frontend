@@ -11,7 +11,7 @@ const PendingPage = () => {
     const fetchUserPendingLogs = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:50100/api/worklog/userPendingWorkLogs",
+          import.meta.env.VITE_API_USER_PENDING_URL ,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -52,7 +52,7 @@ const PendingPage = () => {
     if (result.isConfirmed) {
       try {
         const response = await axios.post(
-          `http://localhost:50100/api/worklog/CancelAddWork/${workLogId}`,
+          `${import.meta.env.VITE_API_USER_CANCEL_WORK_URL}/${workLogId}`,
           {}, 
           {
             headers: {

@@ -15,6 +15,14 @@ const AddWorkLog = () => {
     hoursWorked: "",
   });
 
+  const [attachedFile, setAttachedFile] = useState(null);
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setAttachedFile(file);
+    console.log(file);
+  };
+
   const [isLoading, setIsLoading] = useState(false); // State สำหรับสถานะการโหลด
 
   const handleInputChange = (e) => {
@@ -48,7 +56,7 @@ const AddWorkLog = () => {
     if (result.isConfirmed) {
       try {
         const response = await axios.post(
-          "http://localhost:50100/api/worklog",
+          import.meta.env.VITE_API_ADD_WORK_URL ,
           workLog,
           { withCredentials: true } // ส่ง cookies สำหรับการยืนยันตัวตน
         );
@@ -92,8 +100,8 @@ const AddWorkLog = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="sm:mx-auto sm:w-full sm:max-w-md bg-gray-800 bg-opacity-50 backdrop-filter backdrop-blur-xl rounded-2xl shadow-xl 
-			overflow-hidden"
+        className="sm:mx-auto w-full max-w-4xl bg-gray-800 bg-opacity-50 backdrop-filter backdrop-blur-xl rounded-2xl shadow-xl overflow-visible"
+
       >
         <div className="p-8">
           <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r text-white text-transparent bg-clip-text">
@@ -110,15 +118,49 @@ const AddWorkLog = () => {
               onChange={handleInputChange}
               required
             />
-            <Input
-              icon={PencilLine}
-              type="text"
-              name="taskDetails"
-              placeholder="Task Details"
-              value={workLog.taskDetails}
-              onChange={handleInputChange}
-              required
-            />
+            <div className="mb-4 relative">
+              <label htmlFor="taskDetails" className="text-white font-medium mb-2 block">
+                <span className="flex items-center gap-2">
+                  <PencilLine size={20} />
+                  Task Details
+                </span>
+              </label>
+              <textarea
+                id="taskDetails"
+                name="taskDetails"
+                value={workLog.taskDetails}
+                onChange={handleInputChange}
+                placeholder="Describe your task in detail..."
+                required
+                rows={6}
+                className="w-full resize-y min-h-[150px] rounded-lg border border-gray-300 p-3 bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="fileUpload" className="text-white font-medium block mb-1">
+                Attach File (optional)
+              </label>
+
+              <div className="inline-block relative">
+                <input
+                  type="file"
+                  id="fileUpload"
+                  name="fileUpload"
+                  className="text-sm text-white bg-gray-900 border border-gray-300 rounded-lg cursor-pointer 
+                 focus:outline-none px-3 py-1 w-[180px] hover:border-blue-400 transition duration-150"
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    setAttachedFile(file);
+                  }}
+                />
+              </div>
+
+              {attachedFile && (
+                <p className="mt-2 text-sm text-gray-300 truncate">
+                  Selected File: <span className="font-medium text-white">{attachedFile.name}</span>
+                </p>
+              )}
+            </div>
             <Input
               icon={PencilLine}
               type="text"
