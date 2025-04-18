@@ -100,7 +100,7 @@ pipeline {
                     print "Verify Robot Framwork installation"
                     sh 'pip3 show robotframework'
                     print "Run Robot Framwork Test"
-                    sh 'python3 -m robot TS01-Register.robot'
+                    sh 'python3 -m robot wru_test.robot'
                 }
             }
         }
