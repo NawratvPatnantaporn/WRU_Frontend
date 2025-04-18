@@ -73,6 +73,7 @@ pipeline {
                print "Docker Build Image"
                script {
                    sh "docker rm -f csi402-frontend-run || true"
+                   sh "docker build -t csi402-frontend:latest ."
                    sh "docker run -d --name csi402-frontend-run -p 54100:5173 csi402-frontend:latest"
                    print "Docker Image to Running Container Succes"
                } 
