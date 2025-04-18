@@ -90,7 +90,6 @@ pipeline {
                     userRemoteConfigs: [[credentialsId: 'nawarat', url: 'https://github.com/NawratvPatnantaporn/Automation.git']]
                 ])
 
-                dir('Register/Register-Positive') {
                     print "Install Robot"
                     sh 'curl -sS https://bootstrap.pypa.io/get-pip.py -o get-pip.py'
                     sh 'python3 get-pip.py'
@@ -101,7 +100,6 @@ pipeline {
                     sh 'pip3 show robotframework'
                     print "Run Robot Framwork Test"
                     sh 'python3 -m robot wru_test.robot'
-                }
             }
         }
     }
