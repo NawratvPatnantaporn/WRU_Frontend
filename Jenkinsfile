@@ -5,11 +5,11 @@ pipeline {
         // DOCKER_NETWORK = "app-net"
     }
     stages {
-        // stage('Cleanup') {
-        //     steps {
-        //         sh "docker rm -f mongo wru_backend-run wru_frontend-run || true"
-        //     }
-        // }
+        stage('Cleanup') {
+            steps {
+                sh "docker rm -f wru_frontend-run || true"
+            }
+        }
         
         stage('Debug Path') {
             steps {
