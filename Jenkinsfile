@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         PATH = "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-        // DOCKER_NETWORK = "app-net"
+        DOCKER_NETWORK = "app-net"
     }
     stages {
         stage('Cleanup') {
