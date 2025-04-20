@@ -25,7 +25,7 @@ pipeline {
                 checkout([
                     $class: 'GitSCM',
                     branches: [[name: '*/main']],
-                    // extensions: [[$class: 'CleanCheckout']],
+                    extensions: [[$class: 'CleanCheckout']],
                     userRemoteConfigs: [[credentialsId: 'nawarat', url: 'https://github.com/NawratvPatnantaporn/WRU_Frontend.git']]
                 ])
                     print "Check Success"
@@ -86,7 +86,7 @@ pipeline {
                 checkout([
                     $class: 'GitSCM',
                     branches: [[name: '*/main']],
-                    // extensions: [[$class: 'CleanCheckout']],
+                    extensions: [[$class: 'CleanCheckout']],
                     userRemoteConfigs: [[credentialsId: 'nawarat', url: 'https://github.com/NawratvPatnantaporn/Automation.git']]
                 ])
 
